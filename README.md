@@ -1,75 +1,221 @@
-# BERT Sentiment Analysis — IMDb Movie Reviews
+# 🎬 BERT Sentiment Analysis — IMDb Movie Reviews
 
-Fine-tuned `bert-base-uncased` on the IMDb dataset for binary sentiment classification.  
-Achieves **92%+ test accuracy** with a lightweight Streamlit inference demo.
+A production-ready NLP project that fine-tunes **BERT (`bert-base-uncased`)** on the IMDb Movie Review dataset for **binary sentiment classification**.
 
----
+The project includes:
 
-## Project Structure
-
-```
-bert_sentiment/
-├── app.py                  # Streamlit web demo
-├── requirements.txt        # Python dependencies
-├── src/
-│   ├── config.py           # Hyperparameters and paths
-│   ├── data_loader.py      # IMDb loading + tokenization + DataLoaders
-│   ├── model.py            # BertSentimentClassifier definition
-│   ├── train.py            # Training loop (AdamW + warmup scheduler)
-│   ├── evaluate.py         # Metrics, confusion matrix, attention viz
-│   └── inference.py        # Production inference pipeline
-├── models/                 # Saved checkpoints (auto-created)
-├── outputs/                # Plots (auto-created)
-└── data/                   # Cache (auto-created)
-```
+* ✅ Fine-tuned transformer model
+* ✅ Attention visualization
+* ✅ Confusion matrix & training curves
+* ✅ Streamlit web application
+* ✅ HuggingFace hosted model
+* ✅ Live deployment
 
 ---
 
-## Quick Start
+# 🚀 Live Demo
+
+### 🌐 Streamlit App
+
+https://bert-sentiment-analysis-d6p2f8c7ir8ymccreqcdcw.streamlit.app/
+
+---
+
+# 🤗 HuggingFace Model
+
+https://huggingface.co/Shreyu5835/bert-imdb-sentiment
+
+---
+
+# 📌 Features
+
+* Fine-tuned `bert-base-uncased`
+* Real-time sentiment prediction
+* Attention weight visualization
+* IMDb movie review classification
+* Interactive Streamlit interface
+* Confusion matrix & training curves
+* HuggingFace model hosting
+* GPU-compatible training pipeline
+
+---
+
+# 🧠 Model Overview
+
+| Item       | Details                         |
+| ---------- | ------------------------------- |
+| Base Model | `bert-base-uncased`             |
+| Task       | Binary Sentiment Classification |
+| Dataset    | IMDb Movie Reviews              |
+| Framework  | PyTorch + HuggingFace           |
+| Accuracy   | 92%+                            |
+| Classes    | POSITIVE / NEGATIVE             |
+
+---
+
+# 📂 Project Structure
 
 ```bash
-# 1. Install dependencies
-pip install -r requirements.txt
-
-# 2. Fine-tune BERT (needs GPU for reasonable speed)
-python src/train.py
-
-# 3. Evaluate on test set
-python src/evaluate.py
-
-# 4. Launch Streamlit demo
-streamlit run app.py
+bert_sentiment/
+│
+├── app.py                          # Streamlit web application
+├── requirements.txt               # Python dependencies
+├── README.md
+├── training_notebook.ipynb        # Colab training notebook
+│
+├── outputs/
+│   ├── training_curves.png
+│   ├── confusion_matrix.png
+│   └── attention_weights.png
+│
+├── src/
+│   ├── config.py                  # Hyperparameters & paths
+│   ├── data_loader.py             # Dataset loading + tokenization
+│   ├── model.py                   # BERT classifier architecture
+│   ├── train.py                   # Fine-tuning pipeline
+│   ├── evaluate.py                # Metrics & visualization
+│   └── inference.py               # Production inference pipeline
+│
+├── models/                        # Saved checkpoints (local)
+└── data/                          # Dataset cache
 ```
 
 ---
 
-## Configuration (`src/config.py`)
+# ⚡ Quick Start
 
-| Parameter       | Default              | Description                        |
-|-----------------|----------------------|------------------------------------|
-| PRETRAINED_MODEL| bert-base-uncased    | HuggingFace model hub ID           |
-| MAX_SEQ_LENGTH  | 512                  | Token truncation length            |
-| BATCH_SIZE      | 16                   | Samples per batch                  |
-| NUM_EPOCHS      | 3                    | Fine-tuning epochs                 |
-| LEARNING_RATE   | 2e-5                 | AdamW base LR                      |
-| WARMUP_RATIO    | 0.1                  | Fraction of steps for LR warmup    |
-| WEIGHT_DECAY    | 0.01                 | AdamW weight decay                 |
-| VAL_SIZE        | 0.1                  | Fraction of train used for val     |
+## 1️⃣ Clone Repository
+
+```bash
+git clone https://github.com/ShreyaJadhav-3/BERT-sentiment-analysis.git
+
+cd BERT-sentiment-analysis
+```
 
 ---
 
-## Results
+## 2️⃣ Install Dependencies
 
-| Metric       | Value  |
-|--------------|--------|
-| Accuracy     | 92%+   |
-| Precision    | ~0.92  |
-| Recall       | ~0.92  |
-| F1-Score     | ~0.92  |
-| ROC-AUC      | ~0.97  |
+```bash
+pip install -r requirements.txt
+```
 
 ---
 
-## Tech Stack
+## 3️⃣ Train Model
 
-Python · PyTorch · HuggingFace Transformers · Datasets · scikit-learn · Matplotlib · Seaborn · Streamlit
+```bash
+python src/train.py
+```
+
+---
+
+## 4️⃣ Evaluate Model
+
+```bash
+python src/evaluate.py
+```
+
+This generates:
+
+* confusion matrix
+* attention visualization
+* training curves
+
+---
+
+## 5️⃣ Run Streamlit App
+
+```bash
+python -m streamlit run app.py
+```
+
+---
+
+# 📊 Results
+
+| Metric    | Score |
+| --------- | ----- |
+| Accuracy  | 92%+  |
+| Precision | ~0.92 |
+| Recall    | ~0.92 |
+| F1-Score  | ~0.92 |
+| ROC-AUC   | ~0.97 |
+
+---
+
+# 📈 Training Curves
+
+<img src="./outputs/training_curves.png" width="900"/>
+
+---
+
+# 🔥 Confusion Matrix
+
+<img src="./outputs/confusion_matrix.png" width="700"/>
+
+---
+
+# 👀 Attention Visualization
+
+The model visualizes the most influential tokens using BERT attention weights.
+
+Example:
+
+* words like `"masterpiece"` and `"terrible"` receive strong attention
+* improves interpretability of predictions
+
+<img src="./outputs/attention_weights.png" width="900"/>
+
+---
+
+# 🛠️ Tech Stack
+
+* Python
+* PyTorch
+* HuggingFace Transformers
+* HuggingFace Datasets
+* Streamlit
+* NumPy
+* Matplotlib
+* Seaborn
+* scikit-learn
+
+---
+
+# 🧪 Example Predictions
+
+| Review                               | Prediction |
+| ------------------------------------ | ---------- |
+| "This movie was absolutely amazing!" | POSITIVE   |
+| "Terrible plot and boring acting."   | NEGATIVE   |
+
+---
+
+# 📌 Future Improvements
+
+* DistilBERT optimization
+* Multi-language sentiment analysis
+* Docker deployment
+* FastAPI backend
+* ONNX model optimization
+* Review history tracking
+
+---
+
+# 👩‍💻 Author
+
+### Shreya Jadhav
+
+Second-year engineering student passionate about:
+
+* Artificial Intelligence
+* NLP
+* Machine Learning
+* Full-stack AI applications
+
+---
+
+# ⭐ If you like this project
+
+Give it a star on GitHub ⭐
