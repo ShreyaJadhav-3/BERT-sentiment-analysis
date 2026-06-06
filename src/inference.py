@@ -19,20 +19,31 @@ class SentimentPipeline:
     >>> pipe.predict("This film was absolutely incredible!")
     {'label': 'POSITIVE', 'score': 0.9987, 'negative_score': 0.0013}
     """
+    
+    def __init__(self, model=None, tokenizer=None):
 
-    def __init__(self, model_path: str = SAVED_MODEL_PATH, device: str = "auto"):
-        if device == "auto":
-            self.device = torch.device(
-                "cuda" if torch.cuda.is_available()
-                else "mps" if torch.backends.mps.is_available()
-                else "cpu"
-            )
+        self.device = torch.device(
+            "cuda"
+            if torch.cuda.is_available()
+            else "cpu"
+        )
+
+        # Load from HuggingFace if model/tokenizer provided
+        if model is not None and tokenizer is not None:
+
+            self.model = model.to(self.device)
+
+            self.tokenizer = tokenizer
+
         else:
-            self.device = torch.device(device)
+            # fallback local loading
+            self.model = load_saved_model().to(self.device)
 
-        self.tokenizer = BertTokenizer.from_pretrained(model_path)
-        self.model     = load_saved_model(model_path, self.device)
-        print(f"Model loaded on {self.device}")
+            self.tokenizer = BertTokenizer.from_pretrained(
+                SAVED_MODEL_PATH
+            )
+
+        self.model.eval()
 
     @torch.no_grad()
     def predict(self, texts, top_tokens: int = 5):
